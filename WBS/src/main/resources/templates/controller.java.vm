@@ -1,0 +1,82 @@
+package ${package.Controller};
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+import com.wbs.base.Response;
+import ${package.ServiceImpl}.${entity}Dto;
+import ${package.Entity}.${entity};
+import ${package.Service}.${table.serviceName};
+
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+	@Autowired private ${table.serviceName} ${table.serviceName.substring(0, 1).toLowerCase()}${table.serviceName.substring(1)};
+	
+	@GetMapping("/list")
+	public Response<Map<String, Object>> list(${entity}Dto dto) {
+		Response<Map<String, Object>> res = new Response<Map<String,Object>>();
+		res.setResult(getResult(${table.serviceName.substring(0, 1).toLowerCase()}${table.serviceName.substring(1)}.selectList(dto)));
+		return res;
+	}
+	
+	@PostMapping("/save")
+	public Response<${entity}> save(@RequestBody ${entity}Dto dto) {
+		Response<${entity}> res = new Response<${entity}>();
+		res.setResult(${table.serviceName.substring(0, 1).toLowerCase()}${table.serviceName.substring(1)}.saveOrUpdate(dto));
+		return res;
+	}
+	
+	@PutMapping("/update")
+	public Response<${entity}> update(@RequestBody ${entity}Dto dto) {
+		Response<${entity}> res = new Response<${entity}>();
+		res.setResult(${table.serviceName.substring(0, 1).toLowerCase()}${table.serviceName.substring(1)}.saveOrUpdate(dto));
+		return res;
+	}
+	
+	@DeleteMapping("/delete")
+	public Response<Boolean> delete(@RequestBody ${entity}Dto dto) {
+		Response<Boolean> res = new Response<Boolean>();
+		res.setResult(${table.serviceName.substring(0, 1).toLowerCase()}${table.serviceName.substring(1)}.delete(dto));
+		return res;
+	}
+}
+
+#end

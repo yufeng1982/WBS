@@ -1,0 +1,55 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import  ${package.ServiceImpl}.${entity}Dto;
+
+import ${superServiceImplClassPackage};
+
+import java.util.Map;
+
+import org.springframework.beans.BeanUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * <p>
+ * ${table.comment}  服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> {
+	
+	@Autowired private ${table.mapperName} ${table.mapperName.substring(0, 1).toLowerCase()}${table.mapperName.substring(1)};
+	
+	@Transactional(readOnly = true)
+	public IPage<Map<String, Object>> selectList(${entity}Dto dto) {
+		Page<Map<String, Object>> page = new Page<Map<String,Object>>(dto.getPageNo(), dto.getPageSize());
+		return ${table.mapperName.substring(0, 1).toLowerCase()}${table.mapperName.substring(1)}.selectByPage(page, dto);
+	}
+	
+	@Transactional
+	public ${entity} saveOrUpdate(${entity}Dto dto) {
+		${entity} entity = null;
+		if (StringUtils.isBlank(dto.getId())) {
+			entity = new ${entity}();
+		} else {
+			entity = getById(dto.getId());
+		}
+		BeanUtils.copyProperties(dto, entity, "id");
+		saveOrUpdate(entity);
+		return entity;
+	}
+	
+	@Transactional
+	public boolean delete(${entity}Dto dto) {
+		return removeById(dto.getId());
+	}
+}

@@ -1,0 +1,33 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import java.io.Serializable;
+import com.wbs.base.BaseDto;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * <p>
+ * ${table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ${entity}Dto extends BaseDto<${entity}> implements Serializable {
+
+
+	private static final long serialVersionUID = 1L;
+
+#foreach($field in ${table.fields})
+	/**
+     * ${field.comment}
+     */
+	private ${field.propertyType} ${field.propertyName};
+
+#end
+
+
+}
