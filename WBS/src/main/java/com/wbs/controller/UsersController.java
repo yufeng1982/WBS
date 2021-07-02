@@ -3,7 +3,12 @@ package com.wbs.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,6 +82,20 @@ public class UsersController extends BaseController {
 		
 		response.setSuccess(false);
 
+	 	return response;
+    }
+	
+	@PostMapping(value = "/logout")
+    public Response<Map<String, Object>> logout(Model m, HttpServletRequest request) {
+		Response<Map<String, Object>> response = new Response<Map<String, Object>>();
+    	
+		Subject subject = SecurityUtils.getSubject();
+    	subject.logout();
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+        map.put("AuthToken", "logout");
+		response.setSuccess(true);
+		
 	 	return response;
     }
 }

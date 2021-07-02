@@ -20,4 +20,5 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 public interface UsersMapper extends BaseMapper<Users> {
 
 	public IPage<Map<String, Object>> selectByPage(Page<?> page, UsersDto dto);
+	public Users getByUsername(String username);
 }

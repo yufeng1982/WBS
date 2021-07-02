@@ -1,6 +1,10 @@
 package com.wbs.entity;
 
 import com.wbs.base.BaseEntity;
+import com.wbs.enums.Category;
+import com.wbs.enums.Status;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,12 +42,14 @@ public class Article extends BaseEntity {
     /**
      * 类别
      */
-    private Integer category;
+    @JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+    private Category category;
 
     /**
      * 状态
      */
-    private String status;
+    @JSONField(serialzeFeatures= SerializerFeature.WriteEnumUsingToString)
+    private Status status;
 
 
 }

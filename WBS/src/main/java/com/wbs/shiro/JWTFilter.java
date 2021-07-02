@@ -123,7 +123,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
          out.println("{\"success\":false,\"noLogged\":true,\"error\":\"对不起,您还没有登录!\"}");

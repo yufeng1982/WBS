@@ -11,6 +11,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wbs.entity.Users;
 import com.wbs.service.UsersService;
 
@@ -46,10 +47,10 @@ public class ShiroRealm extends AuthorizingRealm {
 	//认证
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		String token = (String) authcToken.getPrincipal();
-	//		SysToken sysToken = sysTokenService.getById(token);
-	//		if(sysToken == null) {
-	//			return null;
-	//		}
+		
+		if(!StringUtils.isBlank(token) && token.equals("logout")) {
+			return null;
+		}
 	    String username = JWTUtil.getUsername(token);
 	
 	    Users user = userService.getOne(new QueryWrapper<Users>().eq("username", username));
