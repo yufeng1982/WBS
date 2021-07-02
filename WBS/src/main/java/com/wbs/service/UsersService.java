@@ -14,6 +14,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wbs.dao.UsersMapper;
 import  com.wbs.dto.UsersDto;
 import com.wbs.entity.Users;
@@ -38,6 +40,7 @@ public class UsersService extends ServiceImpl<UsersMapper, Users> {
 	public static final int SALT_SIZE = 8;
 	
 	@Autowired private UsersMapper usersMapper;
+	@Autowired private RolesService rolesService;
 	
 	public String login(UsersDto usersDto) {
 		Users users = this.getOne(new QueryWrapper<Users>().eq("username", usersDto.getUsername()));
@@ -66,6 +69,11 @@ public class UsersService extends ServiceImpl<UsersMapper, Users> {
 		return usersMapper.selectByPage(page, dto);
 	}
 	
+	@Transactional(readOnly = true)
+	public Users getByUsername(String username) {
+		return usersMapper.getByUsername(username);
+	}
+	
 	@Transactional
 	public Users saveOrUpdate(UsersDto dto) {
 		Users entity = null;
@@ -75,7 +83,12 @@ public class UsersService extends ServiceImpl<UsersMapper, Users> {
 			entity = getById(dto.getId());
 		}
 		BeanUtils.copyProperties(dto, entity, "id");
-		encryptPassword(entity);
+		if(StringUtils.isBlank(dto.getId())) encryptPassword(entity);
+		try {
+			entity.setRoles(new ObjectMapper().writeValueAsString(rolesService.list()));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		saveOrUpdate(entity);
 		return entity;
 	}

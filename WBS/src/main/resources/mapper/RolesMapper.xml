@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wbs.dao.UsersMapper">
+<mapper namespace="com.wbs.dao.RolesMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wbs.entity.Users">
+    <resultMap id="BaseResultMap" type="com.wbs.entity.Roles">
         <result column="id" property="id" />
         <result column="create_date" property="createDate" />
         <result column="modify_date" property="modifyDate" />
         <result column="active" property="active" />
         <result column="version" property="version" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="salt" property="salt" />
-        <result column="mobile" property="mobile" />
-        <result column="email" property="email" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -23,13 +21,10 @@
         modify_date,
         active,
         version,
-        username, password, salt, mobile, email, roles
+        code, name, description
     </sql>
 
 	<select id="selectByPage" resultType="java.util.Map">
-		select * from public.users where active=true
-	</select>
-	<select id="getByUsername" resultType="com.wbs.entity.Users">
-		select * from public.users where active=true and username=#{username}
+		select * from public.roles where active=true
 	</select>
 </mapper>

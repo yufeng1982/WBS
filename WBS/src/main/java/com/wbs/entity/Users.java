@@ -1,7 +1,10 @@
 package com.wbs.entity;
 
-import com.wbs.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.wbs.base.BaseEntity;
+import com.wbs.handler.JsonTypeHandler;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +18,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value="users",schema="public")
+@TableName(value="users",schema="public", autoResultMap = true)
 public class Users extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +51,8 @@ public class Users extends BaseEntity {
     /**
      * 角色列表
      */
-    private String roles;
+    @TableField(typeHandler = JsonTypeHandler.class)
+    private Object roles;
 
-
+ 
 }

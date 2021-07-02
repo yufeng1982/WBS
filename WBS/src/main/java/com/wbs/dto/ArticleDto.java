@@ -1,6 +1,9 @@
 package com.wbs.dto;
 
 import com.wbs.entity.Article;
+import com.wbs.enums.Category;
+import com.wbs.enums.Status;
+
 import java.io.Serializable;
 import com.wbs.base.BaseDto;
 import lombok.Data;
@@ -39,12 +42,12 @@ public class ArticleDto extends BaseDto<Article> implements Serializable {
 	/**
      * 类别
      */
-	private Integer category;
+	private Category category;
 
 	/**
      * 状态
      */
-	private String status;
+	private Status status;
 
 
 
