@@ -1,7 +1,7 @@
 package com.wbs.dao;
 
-import com.wbs.dto.RolesDto;
-import com.wbs.entity.Roles;
+import com.wbs.dto.UserDto;
+import com.wbs.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.Map;
@@ -11,13 +11,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
  * <p>
- * 角色表 Mapper 接口
+ *  Mapper 接口
  * </p>
  *
  * @author YF
- * @since 2021-07-01
+ * @since 2021-06-30
  */
-public interface RolesMapper extends BaseMapper<Roles> {
+public interface UserMapper extends BaseMapper<User> {
 
-	public IPage<Map<String, Object>> selectByPage(Page<?> page, RolesDto dto);
+	public IPage<Map<String, Object>> selectByPage(Page<?> page, UserDto dto);
+	public User getByUsername(String username);
 }

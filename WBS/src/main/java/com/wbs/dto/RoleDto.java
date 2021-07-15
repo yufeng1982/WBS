@@ -1,6 +1,6 @@
 package com.wbs.dto;
 
-import com.wbs.entity.Roles;
+import com.wbs.entity.Role;
 import java.io.Serializable;
 import com.wbs.base.BaseDto;
 import lombok.Data;
@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RolesDto extends BaseDto<Roles> implements Serializable {
+public class RoleDto extends BaseDto<Role> implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;

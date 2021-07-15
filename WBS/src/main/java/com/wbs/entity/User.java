@@ -18,8 +18,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value="users",schema="public", autoResultMap = true)
-public class Users extends BaseEntity {
+@TableName(value="user",schema="public", autoResultMap = true)
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

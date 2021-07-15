@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wbs.base.BaseController;
 import com.wbs.base.Response;
-import com.wbs.dto.UsersDto;
-import com.wbs.entity.Users;
-import com.wbs.service.UsersService;
+import com.wbs.dto.UserDto;
+import com.wbs.entity.User;
+import com.wbs.service.UserService;
 
 
 /**
@@ -34,40 +34,40 @@ import com.wbs.service.UsersService;
  * @since 2021-06-30
  */
 @RestController
-@RequestMapping("/users")
-public class UsersController extends BaseController {
-	@Autowired private UsersService usersService;
+@RequestMapping("/user")
+public class UserController extends BaseController {
+	@Autowired private UserService usersService;
 	
 	@GetMapping("/list")
-	public Response<Map<String, Object>> list(UsersDto dto) {
+	public Response<Map<String, Object>> list(UserDto dto) {
 		Response<Map<String, Object>> res = new Response<Map<String,Object>>();
 		res.setResult(getResult(usersService.selectList(dto)));
 		return res;
 	}
 	
 	@PostMapping("/save")
-	public Response<Users> save(@RequestBody UsersDto dto) {
-		Response<Users> res = new Response<Users>();
+	public Response<User> save(@RequestBody UserDto dto) {
+		Response<User> res = new Response<User>();
 		res.setResult(usersService.saveOrUpdate(dto));
 		return res;
 	}
 	
 	@PutMapping("/update")
-	public Response<Users> update(@RequestBody UsersDto dto) {
-		Response<Users> res = new Response<Users>();
+	public Response<User> update(@RequestBody UserDto dto) {
+		Response<User> res = new Response<User>();
 		res.setResult(usersService.saveOrUpdate(dto));
 		return res;
 	}
 	
 	@DeleteMapping("/delete")
-	public Response<Boolean> delete(@RequestBody UsersDto dto) {
+	public Response<Boolean> delete(@RequestBody UserDto dto) {
 		Response<Boolean> res = new Response<Boolean>();
 		res.setResult(usersService.delete(dto));
 		return res;
 	}
 	
 	@PostMapping(value = "/login")
-    public Response<Map<String, Object>> login(@RequestBody UsersDto dto) {
+    public Response<Map<String, Object>> login(@RequestBody UserDto dto) {
     	
 		Response<Map<String, Object>> response = new Response<Map<String, Object>>();
 		String token = usersService.login(dto);

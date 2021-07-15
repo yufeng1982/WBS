@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.wbs.entity.Users;
-import com.wbs.service.UsersService;
+import com.wbs.entity.User;
+import com.wbs.service.UserService;
 
 /**
  * <p>
@@ -25,13 +25,13 @@ import com.wbs.service.UsersService;
  */
 public class ShiroRealm extends AuthorizingRealm {
 
-	@Autowired private UsersService userService;
+	@Autowired private UserService userService;
 	
 
 	//授权
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		String username = (String) principalCollection.fromRealm(getName()).iterator().next();
-		Users user = userService.getOne(new QueryWrapper<Users>().eq("username", username));
+		User user = userService.getOne(new QueryWrapper<User>().eq("username", username));
 	    if (null == user) {
 	         return null;
 	    } else {
@@ -53,7 +53,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		}
 	    String username = JWTUtil.getUsername(token);
 	
-	    Users user = userService.getOne(new QueryWrapper<Users>().eq("username", username));
+	    User user = userService.getOne(new QueryWrapper<User>().eq("username", username));
 	
 	
 	    // 用户不会空

@@ -1,6 +1,6 @@
 package com.wbs.dto;
 
-import com.wbs.entity.Users;
+import com.wbs.entity.User;
 import java.io.Serializable;
 import com.wbs.base.BaseDto;
 import lombok.Data;
@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UsersDto extends BaseDto<Users> implements Serializable {
+public class UserDto extends BaseDto<User> implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
