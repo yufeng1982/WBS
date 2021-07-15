@@ -1,8 +1,8 @@
 package com.wbs.service;
 
-import com.wbs.entity.Roles;
-import com.wbs.dao.RolesMapper;
-import  com.wbs.dto.RolesDto;
+import com.wbs.entity.Role;
+import com.wbs.dao.RoleMapper;
+import  com.wbs.dto.RoleDto;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -25,21 +25,21 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 2021-07-01
  */
 @Service
-public class RolesService extends ServiceImpl<RolesMapper, Roles> {
+public class RoleService extends ServiceImpl<RoleMapper, Role> {
 	
-	@Autowired private RolesMapper rolesMapper;
+	@Autowired private RoleMapper roleMapper;
 	
 	@Transactional(readOnly = true)
-	public IPage<Map<String, Object>> selectList(RolesDto dto) {
+	public IPage<Map<String, Object>> selectList(RoleDto dto) {
 		Page<Map<String, Object>> page = new Page<Map<String,Object>>(dto.getPageNo(), dto.getPageSize());
-		return rolesMapper.selectByPage(page, dto);
+		return roleMapper.selectByPage(page, dto);
 	}
 	
 	@Transactional
-	public Roles saveOrUpdate(RolesDto dto) {
-		Roles entity = null;
+	public Role saveOrUpdate(RoleDto dto) {
+		Role entity = null;
 		if (StringUtils.isBlank(dto.getId())) {
-			entity = new Roles();
+			entity = new Role();
 		} else {
 			entity = getById(dto.getId());
 		}
@@ -49,7 +49,7 @@ public class RolesService extends ServiceImpl<RolesMapper, Roles> {
 	}
 	
 	@Transactional
-	public boolean delete(RolesDto dto) {
+	public boolean delete(RoleDto dto) {
 		return removeById(dto.getId());
 	}
 }

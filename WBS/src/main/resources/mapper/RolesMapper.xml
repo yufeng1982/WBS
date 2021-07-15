@@ -3,7 +3,7 @@
 <mapper namespace="com.wbs.dao.RolesMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wbs.entity.Roles">
+    <resultMap id="BaseResultMap" type="com.wbs.entity.Role">
         <result column="id" property="id" />
         <result column="create_date" property="createDate" />
         <result column="modify_date" property="modifyDate" />

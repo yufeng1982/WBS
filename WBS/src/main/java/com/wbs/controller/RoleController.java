@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wbs.base.BaseController;
 
 import com.wbs.base.Response;
-import com.wbs.dto.RolesDto;
-import com.wbs.entity.Roles;
-import com.wbs.service.RolesService;
+import com.wbs.dto.RoleDto;
+import com.wbs.entity.Role;
+import com.wbs.service.RoleService;
 
 
 /**
@@ -28,35 +28,35 @@ import com.wbs.service.RolesService;
  * @since 2021-07-01
  */
 @RestController
-@RequestMapping("/roles")
-public class RolesController extends BaseController {
-	@Autowired private RolesService rolesService;
+@RequestMapping("/role")
+public class RoleController extends BaseController {
+	@Autowired private RoleService roleService;
 	
 	@GetMapping("/list")
-	public Response<Map<String, Object>> list(RolesDto dto) {
+	public Response<Map<String, Object>> list(RoleDto dto) {
 		Response<Map<String, Object>> res = new Response<Map<String,Object>>();
-		res.setResult(getResult(rolesService.selectList(dto)));
+		res.setResult(getResult(roleService.selectList(dto)));
 		return res;
 	}
 	
 	@PostMapping("/save")
-	public Response<Roles> save(@RequestBody RolesDto dto) {
-		Response<Roles> res = new Response<Roles>();
-		res.setResult(rolesService.saveOrUpdate(dto));
+	public Response<Role> save(@RequestBody RoleDto dto) {
+		Response<Role> res = new Response<Role>();
+		res.setResult(roleService.saveOrUpdate(dto));
 		return res;
 	}
 	
 	@PutMapping("/update")
-	public Response<Roles> update(@RequestBody RolesDto dto) {
-		Response<Roles> res = new Response<Roles>();
-		res.setResult(rolesService.saveOrUpdate(dto));
+	public Response<Role> update(@RequestBody RoleDto dto) {
+		Response<Role> res = new Response<Role>();
+		res.setResult(roleService.saveOrUpdate(dto));
 		return res;
 	}
 	
 	@DeleteMapping("/delete")
-	public Response<Boolean> delete(@RequestBody RolesDto dto) {
+	public Response<Boolean> delete(@RequestBody RoleDto dto) {
 		Response<Boolean> res = new Response<Boolean>();
-		res.setResult(rolesService.delete(dto));
+		res.setResult(roleService.delete(dto));
 		return res;
 	}
 }

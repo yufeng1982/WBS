@@ -3,7 +3,7 @@
 <mapper namespace="com.wbs.dao.UsersMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.wbs.entity.Users">
+    <resultMap id="BaseResultMap" type="com.wbs.entity.User">
         <result column="id" property="id" />
         <result column="create_date" property="createDate" />
         <result column="modify_date" property="modifyDate" />
@@ -29,7 +29,7 @@
 	<select id="selectByPage" resultType="java.util.Map">
 		select * from public.users where active=true
 	</select>
-	<select id="getByUsername" resultType="com.wbs.entity.Users">
+	<select id="getByUsername" resultType="com.wbs.entity.User">
 		select * from public.users where active=true and username=#{username}
 	</select>
 </mapper>

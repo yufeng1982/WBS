@@ -16,9 +16,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wbs.dao.UsersMapper;
-import  com.wbs.dto.UsersDto;
-import com.wbs.entity.Users;
+import com.wbs.dao.UserMapper;
+import  com.wbs.dto.UserDto;
+import com.wbs.entity.User;
 import com.wbs.shiro.JWTToken;
 import com.wbs.shiro.JWTUtil;
 import com.wbs.utils.Digests;
@@ -33,17 +33,17 @@ import com.wbs.utils.EncodeUtils;
  * @since 2021-06-30
  */
 @Service
-public class UsersService extends ServiceImpl<UsersMapper, Users> {
+public class UserService extends ServiceImpl<UserMapper, User> {
 	
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
 	public static final int SALT_SIZE = 8;
 	
-	@Autowired private UsersMapper usersMapper;
-	@Autowired private RolesService rolesService;
+	@Autowired private UserMapper userMapper;
+	@Autowired private RoleService roleService;
 	
-	public String login(UsersDto usersDto) {
-		Users users = this.getOne(new QueryWrapper<Users>().eq("username", usersDto.getUsername()));
+	public String login(UserDto usersDto) {
+		User users = this.getOne(new QueryWrapper<User>().eq("username", usersDto.getUsername()));
         String token = "";
         if(users != null) {
         	if(this.validatePassword(usersDto.getPassword(), users)) {
@@ -64,28 +64,28 @@ public class UsersService extends ServiceImpl<UsersMapper, Users> {
 	}
 	
 	@Transactional(readOnly = true)
-	public IPage<Map<String, Object>> selectList(UsersDto dto) {
+	public IPage<Map<String, Object>> selectList(UserDto dto) {
 		Page<Map<String, Object>> page = new Page<Map<String,Object>>(dto.getPageNo(), dto.getPageSize());
-		return usersMapper.selectByPage(page, dto);
+		return userMapper.selectByPage(page, dto);
 	}
 	
 	@Transactional(readOnly = true)
-	public Users getByUsername(String username) {
-		return usersMapper.getByUsername(username);
+	public User getByUsername(String username) {
+		return userMapper.getByUsername(username);
 	}
 	
 	@Transactional
-	public Users saveOrUpdate(UsersDto dto) {
-		Users entity = null;
+	public User saveOrUpdate(UserDto dto) {
+		User entity = null;
 		if (StringUtils.isBlank(dto.getId())) {
-			entity = new Users();
+			entity = new User();
 		} else {
 			entity = getById(dto.getId());
 		}
 		BeanUtils.copyProperties(dto, entity, "id");
 		if(StringUtils.isBlank(dto.getId())) encryptPassword(entity);
 		try {
-			entity.setRoles(new ObjectMapper().writeValueAsString(rolesService.list()));
+			entity.setRoles(new ObjectMapper().writeValueAsString(roleService.list()));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -94,11 +94,11 @@ public class UsersService extends ServiceImpl<UsersMapper, Users> {
 	}
 	
 	@Transactional
-	public boolean delete(UsersDto dto) {
+	public boolean delete(UserDto dto) {
 		return removeById(dto.getId());
 	}
 	
-	private void encryptPassword(Users user) {
+	private void encryptPassword(User user) {
 		byte[] salt = Digests.generateSalt(SALT_SIZE);
 		user.setSalt(EncodeUtils.encodeHex(salt));
 		byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), salt, HASH_INTERATIONS);
@@ -106,7 +106,7 @@ public class UsersService extends ServiceImpl<UsersMapper, Users> {
 		
 	}
 	
-	public boolean validatePassword(String plainPassword, Users user) {
+	public boolean validatePassword(String plainPassword, User user) {
 		byte[] hashPassword = Digests.sha1(plainPassword.getBytes(), EncodeUtils.decodeHex(user.getSalt()), HASH_INTERATIONS);
 		return user.getPassword().equals(EncodeUtils.encodeHex(hashPassword));
 	}
