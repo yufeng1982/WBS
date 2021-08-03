@@ -38,7 +38,7 @@ import ${package.Service}.${table.serviceName};
 #else
 @Controller
 #end
-@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+@RequestMapping("/api/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen.toLowerCase()}#else${table.entityPath.toLowerCase()}#end")
 #if(${kotlin})
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 

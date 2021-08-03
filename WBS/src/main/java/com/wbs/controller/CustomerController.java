@@ -28,7 +28,7 @@ import com.wbs.service.CustomerService;
  * @since 2021-06-29
  */
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 public class CustomerController extends BaseController {
 	@Autowired private CustomerService customerService;
 	

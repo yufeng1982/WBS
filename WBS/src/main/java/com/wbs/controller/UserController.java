@@ -34,7 +34,7 @@ import com.wbs.service.UserService;
  * @since 2021-06-30
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController extends BaseController {
 	@Autowired private UserService usersService;
 	
