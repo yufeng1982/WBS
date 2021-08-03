@@ -14,49 +14,49 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wbs.base.BaseController;
 
 import com.wbs.base.Response;
-import com.wbs.dto.RoleDto;
-import com.wbs.entity.Role;
-import com.wbs.service.RoleService;
+import com.wbs.dto.MenuInfoDto;
+import com.wbs.entity.MenuInfo;
+import com.wbs.service.MenuInfoService;
 
 
 /**
  * <p>
- * 角色表 前端控制器
+ *  前端控制器
  * </p>
  *
  * @author YF
- * @since 2021-07-01
+ * @since 2021-07-15
  */
 @RestController
-@RequestMapping("/api/role")
-public class RoleController extends BaseController {
-	@Autowired private RoleService roleService;
+@RequestMapping("/api/menuinfo")
+public class MenuInfoController extends BaseController {
+	@Autowired private MenuInfoService menuInfoService;
 	
 	@GetMapping("/list")
-	public Response<Map<String, Object>> list(RoleDto dto) {
+	public Response<Map<String, Object>> list(MenuInfoDto dto) {
 		Response<Map<String, Object>> res = new Response<Map<String,Object>>();
-		res.setResult(getResult(roleService.selectList(dto)));
+		res.setResult(getResult(menuInfoService.selectList(dto)));
 		return res;
 	}
 	
 	@PostMapping("/save")
-	public Response<Role> save(@RequestBody RoleDto dto) {
-		Response<Role> res = new Response<Role>();
-		res.setResult(roleService.saveOrUpdate(dto));
+	public Response<MenuInfo> save(@RequestBody MenuInfoDto dto) {
+		Response<MenuInfo> res = new Response<MenuInfo>();
+		res.setResult(menuInfoService.saveOrUpdate(dto));
 		return res;
 	}
 	
 	@PutMapping("/update")
-	public Response<Role> update(@RequestBody RoleDto dto) {
-		Response<Role> res = new Response<Role>();
-		res.setResult(roleService.saveOrUpdate(dto));
+	public Response<MenuInfo> update(@RequestBody MenuInfoDto dto) {
+		Response<MenuInfo> res = new Response<MenuInfo>();
+		res.setResult(menuInfoService.saveOrUpdate(dto));
 		return res;
 	}
 	
 	@DeleteMapping("/delete")
-	public Response<Boolean> delete(@RequestBody RoleDto dto) {
+	public Response<Boolean> delete(@RequestBody MenuInfoDto dto) {
 		Response<Boolean> res = new Response<Boolean>();
-		res.setResult(roleService.delete(dto));
+		res.setResult(menuInfoService.delete(dto));
 		return res;
 	}
 }
