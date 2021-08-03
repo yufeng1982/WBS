@@ -28,7 +28,7 @@ import com.wbs.service.ChapterService;
  * @since 2021-06-29
  */
 @RestController
-@RequestMapping("/chapter")
+@RequestMapping("/api/chapter")
 public class ChapterController extends BaseController {
 	@Autowired private ChapterService chapterService;
 	
