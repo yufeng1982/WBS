@@ -42,15 +42,9 @@ public class ShiroConfiguration {
 		chain.addPathDefinition("/css/**", "anon");//可以匿名访问
 		chain.addPathDefinition("/images/**", "anon");//可以匿名访问
 		
-		//访问控制
-		chain.addPathDefinition("/users/login", "anon");//可以匿名访问
-		chain.addPathDefinition("/users/logout", "anon");//可以匿名访问
-		
-		
-		//API
-		chain.addPathDefinition("/api/*", "anon");//可以匿名访问
-		
-		
+		//API访问控制
+		chain.addPathDefinition("/api/user/login", "anon");//可以匿名访问
+		chain.addPathDefinition("/api/user/logout", "anon");//可以匿名访问
 		
 		//其它路径均需要登录
 		chain.addPathDefinition("/**", "authc");

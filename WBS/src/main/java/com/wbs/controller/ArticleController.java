@@ -28,7 +28,7 @@ import com.wbs.service.ArticleService;
  * @since 2021-06-29
  */
 @RestController
-@RequestMapping("/article")
+@RequestMapping("/api/article")
 public class ArticleController extends BaseController {
 	@Autowired private ArticleService articleService;
 	
